@@ -1,0 +1,214 @@
+/* Подключаем шрифт через @font-face */
+@font-face {
+    font-family: 'DrukWideCyr';
+    src: url('drukwidecyr-bold.otf') format('opentype'); /* Путь к файлу шрифта */
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Стили для контейнера частиц */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* За основным контентом */
+    pointer-events: none; /* Позволяет взаимодействовать с контентом поверх */
+    background-color: #000; /* Черный фон */
+}
+
+/* Стили для основного контента */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    background-color: #000; /* Черный фон */
+    color: #fff;
+    font-family: 'DrukWideCyr', sans-serif; /* Применяем локальный шрифт ко всему тексту */
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирует элементы по горизонтали */
+}
+
+.grid-container {
+    background-color: #222528;
+    padding: 20px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-gap: 10px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background-color: #5489c2;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+/* Применяем шрифт ко всем кнопкам */
+button, .control-btn, .signal-btn {
+    font-family: 'DrukWideCyr', sans-serif; /* Применяем шрифт к кнопкам */
+}
+
+.controls {
+    background-color: #222528;
+    padding: 10px 0px;
+    border-radius: 25px;
+    display: flex;  /* Используем flexbox */
+    justify-content: space-between;  /* Раздвигаем кнопки по ширине контейнера */
+    align-items: center;  /* Выравниваем элементы по вертикали */
+    margin-bottom: 20px;
+    width: 100%;  /* Для того чтобы контролы занимали всю ширину контейнера */
+}
+
+/* Стиль для цифры в счетчике */
+#counter {
+    font-size: 27px; /* Установите желаемый размер шрифта */
+    font-weight: bold; /* Жирный текст */
+    color: #fff; /* Цвет текста */
+}
+
+.control-btn {
+    background-color: #5489c2;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    cursor: pointer;
+    margin: 0 25px;
+    transition: transform 0.2s, opacity 0.3s; /* Плавное изменение прозрачности */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-btn:hover,
+.control-btn:active,
+.signal-btn:hover,
+.signal-btn:active {
+    transform: translateY(-5px);
+    opacity: 0.7;
+}
+
+.signal-btn {
+    background-color: #5489c2;
+    color: white;
+    border: none;
+    padding: 15px 75px;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.3s; /* Плавное изменение прозрачности */
+}
+
+/* Удалите или закомментируйте этот блок */
+ /*
+button:active {
+    opacity: 0.8;
+}
+*/
+
+/* Добавьте сброс фокуса для кнопок */
+button:focus {
+    outline: none;
+}
+
+/* Остальной CSS остается без изменений */
+
+/* Стили для кусочков */
+.piece {
+  position: absolute;
+  background-color: #5489c2; /* тот же цвет, что и цвет клетки */
+  border-radius: 2px;
+  /* Придаем "центр вращения" */
+  transform-origin: center;
+  /* Анимация: берём общее имя ключевых кадров,
+     но у каждого кусочка своя продолжительность */
+  animation: breakPieces forwards ease-out;
+}
+
+/* Ключевые кадры */
+@keyframes breakPieces {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    /* В середине кусочек улетает, чуток увеличивается и подкручивается */
+    transform: translate(
+                calc(var(--randX) * 1px),
+                calc(var(--randY) * 1px)
+               )
+               rotate(calc(var(--randRot) / 2 * 1deg))
+               scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    /* В конце падает ещё ниже и докручивается до финального угла */
+    transform: translate(
+                calc(var(--randX) * 1px),
+                calc(var(--randY) * 1px + 80px)
+               )
+               rotate(calc(var(--randRot) * 1deg))
+               scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Новые стили для всплывающего сообщения */
+.popup-message {
+    background-color: #5489c2;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: default;
+    opacity: 0; /* Начальная прозрачность (невидимо) */
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px); /* Смещено вверх для анимации */
+    z-index: 1000; /* Поверх других элементов */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Плавные переходы */
+}
+
+.popup-message.show {
+    opacity: 0.8; /* Полупрозрачное */
+    transform: translateX(-50%) translateY(0); /* Перемещается на место */
+}
+
+.popup-message.hide {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px); /* Смещается вверх и исчезает */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#app {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
