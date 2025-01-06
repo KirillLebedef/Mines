@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Signal Grid</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- В случае, если вы предпочитаете вставить CSS непосредственно в HTML, используйте <style> теги -->
+</head>
+<body>
+    <!-- Контейнер для частиц -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <div class="rounded-box grid-container">
+            <div id="grid" class="grid"></div>
+        </div>
+
+        <div class="rounded-box controls">
+            <button id="minus" class="control-btn">-</button>
+            <span id="counter">3</span>
+            <button id="plus" class="control-btn">+</button>
+        </div>
+
+        <button id="getSignal" class="signal-btn">GET SIGNAL</button>
+    </div>
+
+    <!-- Подключение Particles.js через CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- Подключение вашего скрипта -->
+    <script src="script.js"></script>
+</body>
+</html>
